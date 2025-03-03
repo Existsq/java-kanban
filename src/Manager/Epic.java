@@ -8,15 +8,15 @@ public class Epic extends Task {
 
   private final List<Subtask> subtasks = new ArrayList<>();
 
-  public Epic(String title) {
-    super(title, "", null);
+  public Epic(String title, String description) {
+    super(title, description, null);
   }
 
-  public Epic(String title, String description, TaskStatus status, int id) {
-    super(title, "", null, id);
+  public Epic(String title, String description, int id) {
+    super(title, description, null, id);
   }
 
-  public void setStatus(TaskStatus status) {
+  protected void setStatus(TaskStatus status) {
     this.status = status;
   }
 
@@ -43,18 +43,33 @@ public class Epic extends Task {
     return subtasks;
   }
 
+  protected void updateSubtask(Subtask subtask) {
+    Iterator<Subtask> iterator = subtasks.iterator();
+    while (iterator.hasNext()) {
+      Subtask inListSubtask = iterator.next();
+      if (inListSubtask.equals(subtask)) {
+        iterator.remove();
+        subtasks.add(subtask);
+        return;
+      }
+    }
+  }
+
   @Override
   public String toString() {
     return "Эпик {"
-        + "title='"
+        + "Подзадачи="
+        + subtasks
+        + ", название='"
         + title
+        + '\''
+        + ", описание='"
+        + description
         + '\''
         + ", id="
         + id
-        + ", status="
+        + ", статус="
         + status
-        + ", subtasks="
-        + subtasks
         + '}';
   }
 }

@@ -20,17 +20,17 @@ public class Subtask extends Task {
   @Override
   public String toString() {
     return "Подзадача {"
-        + "epic="
-        + epic.title
-        + ", title='"
+        + "id Эпика="
+        + epic.getId()
+        + ", название='"
         + title
         + '\''
-        + ", description='"
+        + ", описание='"
         + description
         + '\''
         + ", id="
         + id
-        + ", status="
+        + ", статус="
         + status
         + '}';
   }

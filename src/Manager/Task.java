@@ -1,16 +1,17 @@
 package Manager;
 
+import java.util.Objects;
+
 public class Task {
   protected String title;
   protected String description;
-  protected final int id;
+  protected int id = 0;
   protected TaskStatus status;
 
   public Task(String title, String description, TaskStatus status) {
     this.title = title;
     this.description = description;
     this.status = status;
-    id = this.hashCode();
   }
 
   public Task(String title, String description, TaskStatus status, int id) {
@@ -28,12 +29,16 @@ public class Task {
     return description;
   }
 
+  public TaskStatus getStatus() {
+    return status;
+  }
+
   public int getId() {
     return id;
   }
 
-  public TaskStatus getStatus() {
-    return status;
+  protected void setId(int id) {
+    this.id = id;
   }
 
   @Override
@@ -45,21 +50,21 @@ public class Task {
 
   @Override
   public int hashCode() {
-    return ++TaskManager.incrementValue;
+    return Objects.hash(id);
   }
 
   @Override
   public String toString() {
     return "Задача {"
-        + "title='"
+        + "Название='"
         + title
         + '\''
-        + ", description='"
+        + ", описание='"
         + description
         + '\''
         + ", id="
         + id
-        + ", status="
+        + ", статусќ="
         + status
         + '}';
   }
