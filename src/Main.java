@@ -1,12 +1,13 @@
-import Manager.Epic;
-import Manager.Subtask;
-import Manager.Task;
-import Manager.TaskManager;
-import Manager.TaskStatus;
+import manager.model.Epic;
+import manager.model.Subtask;
+import manager.model.Task;
+import manager.model.TaskStatus;
+import manager.service.TaskManager;
+import manager.util.Managers;
 
 public class Main {
   public static void main(String[] args) {
-    TaskManager taskManager = new TaskManager();
+    TaskManager taskManager = Managers.getDefault();
 
     Task task1 = new Task("Задача 1", "Описание задачи 1", TaskStatus.NEW);
     Task task2 = new Task("Задача 2", "Описание задачи 2", TaskStatus.IN_PROGRESS);
@@ -49,28 +50,54 @@ public class Main {
             epic1);
     taskManager.updateSubtask(subtask1_1);
 
-    System.out.println("Обновленные задачи:");
-    System.out.println(taskManager.getAllTasks());
+    printAllTasks(taskManager);
 
-    System.out.println("Обновленные эпики:");
-    System.out.println(taskManager.getAllEpics());
+    //    System.out.println("Обновленные задачи:");
+    //    System.out.println(taskManager.getAllTasks());
+    //
+    //    System.out.println("Обновленные эпики:");
+    //    System.out.println(taskManager.getAllEpics());
+    //
+    //    System.out.println("Обновленные подзадачи:");
+    //    System.out.println(taskManager.getAllSubtasks());
+    //
+    //    System.out.println("Статус эпиков после обновления подзадач:");
+    //    System.out.println(taskManager.getAllEpics());
+    //
+    //    taskManager.deleteTaskById(task2.getId());
+    //    taskManager.deleteEpicById(epic2.getId());
+    //
+    //    System.out.println("Задачи после удаления:");
+    //    System.out.println(taskManager.getAllTasks());
+    //
+    //    System.out.println("Эпики после удаления:");
+    //    System.out.println(taskManager.getAllEpics());
+    //
+    //    System.out.println("Подзадачи после удаления:");
+    //    System.out.println(taskManager.getAllSubtasks());
+  }
 
-    System.out.println("Обновленные подзадачи:");
-    System.out.println(taskManager.getAllSubtasks());
+  private static void printAllTasks(TaskManager manager) {
+    System.out.println("Задачи:");
+    for (Task task : manager.getAllTasks()) {
+      System.out.println(task);
+    }
+    System.out.println("Эпики:");
+    for (Task epic : manager.getAllEpics()) {
+      System.out.println(epic);
 
-    System.out.println("Статус эпиков после обновления подзадач:");
-    System.out.println(taskManager.getAllEpics());
+      for (Task task : manager.getAllSubtasksByEpic(epic.getId())) {
+        System.out.println("--> " + task);
+      }
+    }
+    System.out.println("Подзадачи:");
+    for (Task subtask : manager.getAllSubtasks()) {
+      System.out.println(subtask);
+    }
 
-    taskManager.deleteTaskById(task2.getId());
-    taskManager.deleteEpicById(epic2.getId());
-
-    System.out.println("Задачи после удаления:");
-    System.out.println(taskManager.getAllTasks());
-
-    System.out.println("Эпики после удаления:");
-    System.out.println(taskManager.getAllEpics());
-
-    System.out.println("Подзадачи после удаления:");
-    System.out.println(taskManager.getAllSubtasks());
+    System.out.println("История:");
+    for (Task task : manager.getHistory()) {
+      System.out.println(task);
+    }
   }
 }

@@ -1,4 +1,4 @@
-package Manager;
+package manager.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,15 +16,18 @@ public class Epic extends Task {
     super(title, description, TaskStatus.NEW, id);
   }
 
-  protected void setStatus(TaskStatus status) {
+  public void setStatus(TaskStatus status) {
     this.status = status;
   }
 
-  protected void addSubtask(Subtask subtask) {
+  public void addSubtask(Subtask subtask) {
+    if (subtask.getEpic() == this) {
+      return;
+    }
     subtasks.add(subtask);
   }
 
-  protected void removeSubtask(Subtask subtask) {
+  public void removeSubtask(Subtask subtask) {
     Iterator<Subtask> iterator = subtasks.iterator();
     while (iterator.hasNext()) {
       Subtask inListSubtask = iterator.next();
@@ -35,7 +38,7 @@ public class Epic extends Task {
     }
   }
 
-  protected void deleteAllSubtasks() {
+  public void deleteAllSubtasks() {
     subtasks.clear();
   }
 
@@ -43,7 +46,7 @@ public class Epic extends Task {
     return subtasks;
   }
 
-  protected void updateSubtask(Subtask subtask) {
+  public void updateSubtask(Subtask subtask) {
     Iterator<Subtask> iterator = subtasks.iterator();
     while (iterator.hasNext()) {
       Subtask inListSubtask = iterator.next();

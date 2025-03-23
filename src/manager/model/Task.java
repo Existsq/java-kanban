@@ -1,4 +1,4 @@
-package Manager;
+package manager.model;
 
 import java.util.Objects;
 
@@ -37,14 +37,13 @@ public class Task {
     return id;
   }
 
-  protected void setId(int id) {
+  public void setId(int id) {
     this.id = id;
   }
 
   @Override
   public boolean equals(Object o) {
-    if (o == null || getClass() != o.getClass()) return false;
-    Task task = (Task) o;
+    if (!(o instanceof Task task)) return false;
     return id == task.id;
   }
 
@@ -64,7 +63,7 @@ public class Task {
         + '\''
         + ", id="
         + id
-        + ", статусќ="
+        + ", статус="
         + status
         + '}';
   }

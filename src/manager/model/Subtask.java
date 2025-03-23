@@ -1,7 +1,7 @@
-package Manager;
+package manager.model;
 
 public class Subtask extends Task {
-  private final Epic epic;
+  private Epic epic;
 
   public Subtask(String title, String description, TaskStatus status, Epic epic) {
     super(title, description, status);
@@ -15,6 +15,13 @@ public class Subtask extends Task {
 
   public Epic getEpic() {
     return epic;
+  }
+
+  public void setEpic(Epic subtaskEpic) {
+    if (subtaskEpic == this.getEpic()) {
+      return;
+    }
+    this.epic = subtaskEpic;
   }
 
   @Override
