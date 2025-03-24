@@ -3,6 +3,7 @@ package manager.service;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import manager.history.HistoryManager;
 import manager.model.Epic;
 import manager.model.Subtask;
@@ -11,9 +12,9 @@ import manager.util.Managers;
 
 public final class InMemoryTaskManager implements TaskManager {
   public static int incrementValue = 0;
-  private final HashMap<Integer, Task> tasks = new HashMap<>();
-  private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
-  private final HashMap<Integer, Epic> epics = new HashMap<>();
+  private final Map<Integer, Task> tasks = new HashMap<>();
+  private final Map<Integer, Subtask> subtasks = new HashMap<>();
+  private final Map<Integer, Epic> epics = new HashMap<>();
   private final HistoryManager historyManager = Managers.getDefaultHistory();
 
   static int generateId() {
@@ -151,8 +152,6 @@ public final class InMemoryTaskManager implements TaskManager {
       subtaskEpic.removeSubtask(subtask);
       updateEpicStatus(subtaskEpic);
       subtasks.remove(id);
-    } else {
-      System.out.println("Подзадача с id " + id + " не найдена.");
     }
   }
 
